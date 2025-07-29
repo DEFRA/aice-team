@@ -1,0 +1,35 @@
+theme: jekyll-theme-minimal
+title: AI Capabilities Enablement (AICE) Team
+description: This site contains documentation for the Defra AI Capabilities Enablement (AICE) Team.
+baseurl: '/defra-aice-team'
+logo: ./assets/images/defra-logo.svg
+version: 1.0.0
+css_version: 1.0.0
+
+# Build settings
+source: .
+sass:
+  style: compressed
+  sass_dir: _sass
+  load_paths:
+    - _sass
+    - node_modules
+
+# Additional settings
+markdown: kramdown
+show_downloads: false
+google_analytics: # Add your Google Analytics tracking ID here if needed
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude files from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+  - .gitignore
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
