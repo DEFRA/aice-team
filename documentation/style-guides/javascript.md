@@ -152,7 +152,7 @@ var myVariable = 'Hello, world!'
 
 ### 4.1 Function Declarations
 
-In general, function declarations should be used instead of function expressions (aka anonymous or arrow functions). An exception to this rule is when the function is only being used as a callback or to handle an event, in which case an arrow function is acceptable.
+In general, function declarations should be used instead of function expressions (aka anonymous or arrow functions).
 
 Essentially, if the function needs to be called by name, use a function declaration.
 
@@ -177,6 +177,11 @@ const myFunction = () => {
 }
 ```
 
+### 4.2 Function Expressions (aka anonymous or arrow functions)
+An exception to the rule of using function declarations is when the function is only being used as a callback or to handle an event, in which case a function expression is acceptable.
+
+Essentially, if a function needs to be called by name, use a function declaration. If the function is only used as a callback, use a function expression.
+
 Acceptable use of an arrow function:
 ```javascript
 process.on('uncaughtException', (error) => {
@@ -186,6 +191,23 @@ process.on('uncaughtException', (error) => {
 // or
 test('my test', () => {
   // test code
+})
+```
+
+### 4.2.1 Parameters
+When using arrow functions, parentheses are required around the parameters, even if there is only one parameter.
+
+Do this:
+```javascript
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error)
+})
+```
+
+Don't do this:
+```javascript
+process.on('uncaughtException', error => {
+  console.error('Uncaught Exception:', error)
 })
 ```
 
