@@ -211,7 +211,7 @@ process.on('uncaughtException', error => {
 })
 ```
 
-### 4.2 Object Method Definition
+### 4.3 Object Method Definition
 
 When defining methods inside objects, use the method definition syntax.
 
