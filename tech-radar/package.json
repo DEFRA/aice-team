@@ -1,0 +1,19 @@
+{
+  "name": "aice-techradar",
+  "version": "1.0.0",
+  "description": "Collection of data and scripts to support tactical AICE tech radar",
+  "main": "generate-radar.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DEFRA/aice-team.git"
+  },
+  "author": "Defra DDTS",
+  "license": "OGL-UK-3.0",
+  "bugs": {
+    "url": "https://github.com/DEFRA/aice-team/issues"
+  },
+  "homepage": "https://github.com/DEFRA/aice-team#readme"
+}
