@@ -7,7 +7,6 @@ This site contains documentation for the Defra AI Capabilities and Enablement (A
 
 ## Table of Contents
 1. [Welcome](.)
-
+2. Style Guides
+    - [JavaScript Style Guide](style-guides/javascript.md)
 ---
-
-[Next: Responsible Practices →](pages/responsible-practices/.)

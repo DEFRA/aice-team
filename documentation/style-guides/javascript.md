@@ -12,7 +12,7 @@ This guide is an extension to the [Defra JavaScript Standards](https://defra.git
     - [Imports](#21-imports)
     - [Exports](#212-exports)
 3. [Variable Declarations](#3-variable-declarations)
-4. [Function Declarations](#4-function-declarations)
+4. [Functions](#4-functions)
 5. [Strings](#5-strings)
     - [String Literals](#51-string-literals)
     - [Template Literals](#52-template-literals)
@@ -138,8 +138,9 @@ Do this:
 const myVariable = 'Hello, world!'
 
 // or this
-
 let myVariable
+
+myVariable = 'Hello, world!'
 ```
 
 Don't do this:
@@ -147,7 +148,9 @@ Don't do this:
 var myVariable = 'Hello, world!'
 ```
 
-## 4 Function Declarations
+## 4 Functions
+
+### 4.1 Function Declarations
 
 In general, function declarations should be used instead of function expressions (aka anonymous or arrow functions). An exception to this rule is when the function is only being used as a callback or to handle an event, in which case an arrow function is acceptable.
 
@@ -160,8 +163,6 @@ Do this:
 function myFunction() {
   // function code
 }
-
-myFunction()
 ```
 
 Don't do this:
@@ -170,7 +171,10 @@ const myFunction = function() {
   // function code
 }
 
-myFunction()
+// or this
+const myFunction = () => {
+  // function code
+}
 ```
 
 Acceptable use of an arrow function:
@@ -180,10 +184,36 @@ process.on('uncaughtException', (error) => {
 })
 
 // or
-
 test('my test', () => {
   // test code
 })
+```
+
+### 4.2 Object Method Definition
+
+When defining methods inside objects, use the method definition syntax.
+
+Do this:
+```javascript
+const entity = {
+  test: 'hello world',
+  register () {
+    // method code
+  }
+}
+```
+
+Don't do this:
+```javascript
+const entity = {
+  test: 'hello world',
+  register: function () {
+    // method code
+  },
+  another: () => {
+    // method code
+  }
+}
 ```
 
 ## 5 Strings
@@ -235,12 +265,12 @@ class MyClass {
 ## 7 Testing
 We use [Vitest](https://vitest.dev/) for testing JavaScript code. All tests should be placed in a dedicated `tests` directory at the root of the project. Each test file should be named after the module it tests, with a `.test.js` suffix.
 
-Test files should not be placed in the same directory as the module being tested.
+Test files should not be placed in the same directory as the module under test.
 
 ### 7.1 Mocking
 When mocking dependencies in tests, if not using dependency injection, you should use the `vi.mock()` function provided by Vitest. You should not use any other mocking library such as `sinon` or `jest.mock()`.
 
-You should also only mock dependencies that the team owns or has control over. If a dependency is an external library, you should not mock it unless absolutely necessary.
+You should also only mock dependencies that the team owns or has control over. If a dependency is an external library, you should not mock it unless absolutely necessary. In these cases, you should consider using a integration test instead of a unit test.
 
 ## 8 JSDocs
 All functions, classes, and modules should be documented using JSDoc comments. However, you should take a pragmatic approach to using JSDocs. Only document what is necessary to understand the code, and avoid over-documenting.
