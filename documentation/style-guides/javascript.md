@@ -8,11 +8,18 @@ This guide is an extension to the [Defra JavaScript Standards](https://defra.git
 1. [Source Files](#1-source-files)
     - [File Naming](#11-file-naming)
     - [Formatting](#12-formatting)
+    - [Indentation](#121-indentation)
+    - [Semicolons](#122-semicolons)
+    - [Line Length Limit](#123-line-length-limit)
 2. [ES Modules](#2-es-modules)
     - [Imports](#21-imports)
     - [Exports](#212-exports)
 3. [Variable Declarations](#3-variable-declarations)
 4. [Functions](#4-functions)
+    - [Function Declarations](#41-function-declarations)
+    - [Function Expressions (aka anonymous or arrow functions)](#42-function-expressions-aka-anonymous-or-arrow-functions)
+    - [Parameters](#421-parameters)
+    - [Object Method Definition](#43-object-method-definition)
 5. [Strings](#5-strings)
     - [String Literals](#51-string-literals)
     - [Template Literals](#52-template-literals)
@@ -59,23 +66,6 @@ function myFunction() {
 
 #### 1.2.3 Line Length Limit
 The maximum line length is 80 characters. Lines should be wrapped or refactored to fit within this limit.
-
-#### 1.2.4 Arrow Function Parameters
-If using an arrow function, parentheses are required around the parameters, even if there is only one parameter.
-
-Do this:
-```javascript
-const myFunction = (param) => {
-  console.log(param)
-}
-```
-
-Don't do this:
-```javascript
-const myFunction = param => {
-  console.log(param)
-}
-```
 
 ## 2 ES Modules
 
