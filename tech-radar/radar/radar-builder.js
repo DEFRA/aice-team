@@ -33,7 +33,9 @@ async function buildRadar (entries) {
     }
   )
 
-  return jsdom.window.document.querySelector('body').innerHTML
+  svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+
+  return jsdom.window.document.querySelector('#radar').outerHTML
 }
 
 export {

@@ -19,8 +19,11 @@
   },
   "homepage": "https://github.com/DEFRA/aice-team#readme",
   "dependencies": {
+    "canvas": "^3.1.2",
     "d3": "^7.9.0",
-    "jsdom": "^26.1.0"
+    "jsdom": "^26.1.0",
+    "sharp": "^0.34.3",
+    "svg2canvas": "^0.0.14"
   },
   "devDependencies": {
     "eslint": "^9.32.0",
