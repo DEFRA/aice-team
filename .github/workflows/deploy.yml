@@ -19,9 +19,11 @@ jobs:
         node-version: '24'
 
     - name: Install dependencies
+      working-directory: ./tech-radar
       run: npm install
 
     - name: Generate radar image
+      working-directory: ./tech-radar
       run: npm run generate
 
     - name: Upload radar image
