@@ -84,18 +84,18 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - name: Set release version
-      id: set_release_version
-      run: |
-        echo "RELEASE_VERSION=aice-tech-radar-$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+    # - name: Set release version
+    #   id: set_release_version
+    #   run: |
+    #     echo "RELEASE_VERSION=aice-tech-radar-$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-    - name: Create radar release
-      uses: actions/create-release@v1
-      with:
-        tag_name: aice-tech-radar-${{ steps.set_release_version.outputs.RELEASE_VERSION }}
-        release_name: AICE Tech Radar ${{ steps.set_release_version.outputs.RELEASE_VERSION }}
-        draft: false
-        prerelease: false
+    # - name: Create radar release
+    #   uses: actions/create-release@v1
+    #   with:
+    #     tag_name: aice-tech-radar-${{ steps.set_release_version.outputs.RELEASE_VERSION }}
+    #     release_name: AICE Tech Radar ${{ steps.set_release_version.outputs.RELEASE_VERSION }}
+    #     draft: false
+    #     prerelease: false
 
     - uses: actions/deploy-pages@v4
       id: deployment
