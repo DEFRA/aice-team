@@ -52,6 +52,17 @@ jobs:
       run: |
         bundle exec jekyll build
 
+    - name: Download radar image
+      uses: actions/download-artifact@v4
+      with:
+        name: aice-tech-radar
+        path: tech-radar/dist
+
+    - name: Copy radar image to site
+      run: |
+        mkdir -p documentation/_site/assets/images
+        cp tech-radar/dist/radar.svg documentation/_site/assets/images/aice-tech-radar.svg
+
     - name: Upload artifacts
       if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
       uses: actions/upload-pages-artifact@v3
