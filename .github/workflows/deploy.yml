@@ -8,7 +8,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-radar:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Generate radar image
+      run: npm run generate
+
+    - name: Upload radar image
+      uses: actions/upload-artifact@v4
+      with:
+        name: aice-tech-radar
+        path: tech-radar/dist
+
+  build-pages:
+    needs: build-radar
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -34,7 +57,7 @@ jobs:
         path: documentation/_site
 
   deploy:
-    needs: build
+    needs: build-pages
 
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
 
@@ -48,5 +71,18 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+    - name: Set release version
+      id: set_release_version
+      run: |
+        echo "RELEASE_VERSION=aice-tech-radar-$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+    - name: Create radar release
+      uses: actions/create-release@v1
+      with:
+        tag_name: aice-tech-radar-${{ steps.set_release_version.outputs.RELEASE_VERSION }}
+        release_name: AICE Tech Radar ${{ steps.set_release_version.outputs.RELEASE_VERSION }}
+        draft: false
+        prerelease: false
+
     - uses: actions/deploy-pages@v4
       id: deployment
