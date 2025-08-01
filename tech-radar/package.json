@@ -1,10 +1,12 @@
 {
   "name": "aice-techradar",
   "version": "1.0.0",
+  "type": "module",
   "description": "Collection of data and scripts to support tactical AICE tech radar",
-  "main": "generate-radar.js",
+  "main": "scripts/generate.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "node scripts/generate.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/DEFRA/aice-team/issues"
   },
-  "homepage": "https://github.com/DEFRA/aice-team#readme"
+  "homepage": "https://github.com/DEFRA/aice-team#readme",
+  "dependencies": {
+    "d3": "^7.9.0",
+    "jsdom": "^26.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.32.0",
+    "neostandard": "^0.12.2"
+  }
 }
