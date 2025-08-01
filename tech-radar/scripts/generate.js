@@ -1,9 +1,11 @@
 import data from '../data/radar.json' with { type: 'json' }
+import { mapEntries } from '../radar/entries-mapper.js'
 
 import { buildRadar } from '../radar/radar-builder.js'
 
 async function main() {
-  const rawSvg = await buildRadar(data.entries)
+  const entries = mapEntries(data.entries)
+  const rawSvg = await buildRadar(entries)
 }
 
 await main()

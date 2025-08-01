@@ -3,7 +3,7 @@ import { JSDOM } from 'jsdom'
 import { radar_visualization as radarVisualization } from '../lib/radar.js'
 import { RADAR_QUADRANT_MAP, RADAR_RING_COLOUR_MAP, RADAR_RING_MAP } from '../radar/constants.js'
 
-async function buildRadar (entities) {
+async function buildRadar (entries) {
   const jsdom = new JSDOM('<html><body></body></html>', { pretendToBeVisual: true })
 
   const svg = jsdom.window.document.createElement('svg')
@@ -29,14 +29,7 @@ async function buildRadar (entities) {
       rings: Object.keys(RADAR_RING_MAP).map(name => ({ name, color: RADAR_RING_COLOUR_MAP[name] })),
       print_layout: true,
       links_in_new_tabs: true,
-      entries: [
-        {
-          label: 'Some Entry',
-          quadrant: 3,
-          ring: 2,
-          moved: -1
-        }
-      ]
+      entries
     }
   )
 
