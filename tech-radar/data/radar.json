@@ -1,4 +1,14 @@
 {
     "entries": [
-   ]
+        {
+            "title": "MCP",
+            "description": "Model Context Protocol (MCP)",
+            "url": "https://modelcontextprotocol.io/overview",
+            "quadrant": "Frameworks",
+            "ring": "Assess",
+            "createdTimestamp": "2025-07-30T10:00:00Z",
+            "updatedTimestamp": "2025-07-30T10:00:00Z",
+            "status": "Active"
+        }
+    ]
 }
