@@ -513,6 +513,7 @@ async function radar_visualization(document, config) {
     var blip = d3.select(this);
 
     // blip link
+    console.log(d.active)
     if (d.active && Object.prototype.hasOwnProperty.call(d, "link") && d.link) {
       blip = blip.append("a")
         .attr("xlink:href", d.link);

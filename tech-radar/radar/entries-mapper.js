@@ -1,12 +1,14 @@
 import { RADAR_QUADRANT_MAP, RADAR_RING_MAP } from './constants.js'
 
 function mapEntries (rawEntries) {
-  const mappedEntries = rawEntries.map((e) => {
+  const mappedEntries = rawEntries.map((entry) => {
     return {
-      label: e.title,
-      quadrant: RADAR_QUADRANT_MAP[e.quadrant],
-      ring: RADAR_RING_MAP[e.ring],
-      moved: 0
+      label: entry.title,
+      quadrant: RADAR_QUADRANT_MAP[entry.quadrant],
+      ring: RADAR_RING_MAP[entry.ring],
+      moved: 0,
+      link: entry.url,
+      active: entry.active
     }
   })
   
