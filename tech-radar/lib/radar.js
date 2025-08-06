@@ -233,7 +233,8 @@ async function radar_visualization(document, config) {
   var svg = d3.select(document).select("svg#" + config.svg_id)
     .style("background-color", config.colors.background)
     .attr("width", scaled_width)
-    .attr("height", scaled_height);
+    .attr("height", scaled_height)
+    .attr("viewBox", `0 0 ${config.width} ${config.height}`);
 
   var radar = svg.append("g");
   if ("zoomed_quadrant" in config) {
@@ -316,6 +317,7 @@ async function radar_visualization(document, config) {
     // title
     radar.append("a")
       .attr("href", config.repo_url)
+      .attr("target", "_blank")
       .attr("transform", translate(config.title_offset.x, config.title_offset.y))
       .append("text")
       .attr("class", "hover-underline")  // add class for hover effect
@@ -378,7 +380,7 @@ async function radar_visualization(document, config) {
               })
             .append("text")
               .attr("transform", function(d, i) { return legend_transform(quadrant, ring, config.legend_column_width, i, previousLegendHeight); })
-              .attr("class", "legend" + quadrant + ring)
+              .attr("class", `legendItem legend${quadrant}${ring}`)
               .attr("id", function(d, i) { return "legendItem" + d.id; })
               .text(function(d) { return d.id + ". " + d.label; })
               .style("font-family", config.font_family)
@@ -505,15 +507,18 @@ async function radar_visualization(document, config) {
       .append("g")
         .attr("class", "blip")
         .attr("transform", function(d, i) { return legend_transform(d.quadrant, d.ring, config.legend_column_width, i); })
+        .attr("id", function(d) { return "blip" + d.id; })
         .on("mouseover", function(event, d) { showBubble(d); highlightLegendItem(d); })
         .on("mouseout", function(event, d) { hideBubble(d); unhighlightLegendItem(d); });
+
+  blips.append("title")
+    .text(function(d) { return d.label; });
 
   // configure each blip
   blips.each(function(d) {
     var blip = d3.select(this);
 
     // blip link
-    console.log(d.active)
     if (d.active && Object.prototype.hasOwnProperty.call(d, "link") && d.link) {
       blip = blip.append("a")
         .attr("xlink:href", d.link);

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AICE Tech Radar</title>
+        <link rel="stylesheet" href="/aice-team/assets/css/radar.css">
+        <style>
+            .radar-container-fullscreen {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            object {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="radar-container-fullscreen">
+            <object id="radar_container" type="image/svg+xml" data="attachments/aice-tech-radar.svg">
+                <!-- Fallback for browsers that do not support SVG -->
+                <img src="attachments/aice-tech-radar.svg" alt="Defra AI Capabilities and Enablement (AICE) Tech Radar">
+            </object>
+        </div>
+
+        <script type="module" src="/aice-team/assets/js/radar-enhancement.js"></script>
+    </body>
+</html>

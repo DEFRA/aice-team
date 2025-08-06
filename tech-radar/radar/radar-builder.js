@@ -35,7 +35,11 @@ async function buildRadar (entries) {
 
   svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
 
-  return jsdom.window.document.querySelector('#radar').outerHTML
+  // JSDOM auto-converts attributes to lowercase, 'viewBox' however is case-sensitive.
+  // Workaround is to replace 'viewbox' with 'viewBox' in the final HTML.
+  const html = jsdom.window.document.querySelector('#radar').outerHTML
+
+  return html.replace('viewbox=', 'viewBox=')
 }
 
 export {

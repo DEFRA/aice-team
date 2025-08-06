@@ -112,3 +112,35 @@ p, li, td, th, h1, h2, h3, h4, h5, h6 {
     word-break: break-all;
   }
 }
+
+/* Radar container styles */
+.radar-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    
+    /* Ensure responsive behavior */
+    @media screen and (max-width: 1024px) {
+        max-width: 95%;
+        padding: 0 1rem;
+    }
+    
+    @media screen and (max-width: 768px) {
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+    
+    /* Handle radar content */
+    object, img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+}
+
+.radar-container-fullscreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
