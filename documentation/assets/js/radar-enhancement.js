@@ -5,7 +5,7 @@
  * @throws {Error} If SVG container is not found or fails to load
  */
 async function loadSvg () {
-  const radarContainer = document.querySelector('#radar_container')
+  const radarContainer = document.querySelector('#radar_object')
 
   if (!radarContainer) {
     throw new Error('SVG object container not found')
