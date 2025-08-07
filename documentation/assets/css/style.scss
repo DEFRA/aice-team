@@ -139,9 +139,15 @@ p, li, td, th, h1, h2, h3, h4, h5, h6 {
 }
 
 .radar-container-fullscreen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#radar_object {
+    width: 100%;
+    height: 100%;
 }
 
 section:has(.radar-container) {
