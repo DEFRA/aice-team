@@ -8,7 +8,32 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-radar:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+
+    - name: Install dependencies
+      working-directory: ./tech-radar
+      run: npm install
+
+    - name: Generate radar image
+      working-directory: ./tech-radar
+      run: npm run generate
+
+    - name: Upload radar image
+      uses: actions/upload-artifact@v4
+      with:
+        name: aice-tech-radar
+        path: tech-radar/dist
+
+  build-pages:
+    needs: build-radar
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -27,6 +52,17 @@ jobs:
       run: |
         bundle exec jekyll build
 
+    - name: Download radar image
+      uses: actions/download-artifact@v4
+      with:
+        name: aice-tech-radar
+        path: tech-radar/dist
+
+    - name: Copy radar image to site
+      run: |
+        mkdir -p documentation/_site/tech-radar/attachments
+        cp tech-radar/dist/radar.svg documentation/_site/tech-radar/attachments/aice-tech-radar.svg
+
     - name: Upload artifacts
       if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
       uses: actions/upload-pages-artifact@v3
@@ -34,7 +70,7 @@ jobs:
         path: documentation/_site
 
   deploy:
-    needs: build
+    needs: build-pages
 
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
 
@@ -48,5 +84,6 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+
     - uses: actions/deploy-pages@v4
       id: deployment
