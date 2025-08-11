@@ -48,6 +48,26 @@ bundle exec jekyll serve
 
 Open your web browser and navigate to `http://localhost:4000/aice-team` to view the documentation.
 
+### Running the Tech Radar
+The Tech Radar vizualisation is generated as part of the Deployment GitHub Action workflow. However, to generate it locally, you can follow the steps below:
+
+Navigate to the tech-radar directory:
+```bash
+cd aice-team/tech-radar
+```
+
+Install the required dependencies:
+```bash
+npm install
+```
+
+Generate the tech radar:
+```bash
+npm run generate
+```
+
+This will create PNG and SVG versions of the tech radar in the `dist/` directory. The generated files can be copied into the `documentation/tech-radar/attachments/` directory for inclusion in the documentation.
+
 ## Licence
 
 THIS INFORMATION IS LICENSED UNDER THE CONDITIONS OF THE OPEN GOVERNMENT LICENCE found at:
