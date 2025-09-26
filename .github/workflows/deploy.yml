@@ -16,11 +16,13 @@ jobs:
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '24'
+        node-version: '22'
 
     - name: Install dependencies
       working-directory: ./tech-radar
-      run: npm install
+      run: |
+        npm ci
+        npm audit
 
     - name: Generate radar image
       working-directory: ./tech-radar
