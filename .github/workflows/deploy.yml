@@ -11,7 +11,8 @@ jobs:
   build-radar:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
     - name: Install Node.js
       uses: actions/setup-node@v4
@@ -24,8 +25,10 @@ jobs:
         npm ci
         npm audit
 
-    - name: Snyk scan
+    - name: Setup snyk
       uses: snyk/actions/setup@0.4.0
+
+    - name: Snyk scan
       working-directory: ./tech-rdar
       run: |
         snyk test --all-projects
@@ -46,8 +49,12 @@ jobs:
     needs: build-radar
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: ruby/setup-ruby@v1
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
         bundler-cache: true
@@ -57,8 +64,10 @@ jobs:
       run: |
         bundle install
 
-    - name: Snyk scan
+    - name: Setup snyk
       uses: snyk/actions/setup@0.4.0
+
+    - name: Snyk scan
       working-directory: ./documentation
       run: |
         snyk test --all-projects
