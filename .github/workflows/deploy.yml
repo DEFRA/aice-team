@@ -30,7 +30,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         command: test
-        working-directory: ./tech-radar
+        entryPoint: ./tech-radar
 
     - name: Generate radar image
       working-directory: ./tech-radar
@@ -63,7 +63,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         command: test
-        working-directory: ./documentation
+        entryPoint: ./documentation
 
     - name: Build site
       working-directory: ./documentation
