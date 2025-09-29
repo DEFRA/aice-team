@@ -27,7 +27,7 @@ jobs:
     - name: Snyk scan
       uses: snyk/actions/setup@0.4.0
       working-directory: ./tech-rdar
-      run:
+      run: |
         snyk test --all-projects
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
@@ -60,7 +60,7 @@ jobs:
     - name: Snyk scan
       uses: snyk/actions/setup@0.4.0
       working-directory: ./documentation
-      run:
+      run: |
         snyk test --all-projects
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
