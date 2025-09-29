@@ -24,6 +24,14 @@ jobs:
         npm ci
         npm audit
 
+    - name: Snyk scan
+      uses: snyk/actions/node@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        command: test
+        working-directory: ./tech-radar
+
     - name: Generate radar image
       working-directory: ./tech-radar
       run: npm run generate
@@ -48,6 +56,14 @@ jobs:
       working-directory: ./documentation
       run: |
         bundle install
+
+    - name: Snyk scan
+      uses: snyk/actions/ruby@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        command: test
+        working-directory: ./documentation
 
     - name: Build site
       working-directory: ./documentation
