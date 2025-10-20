@@ -11,16 +11,29 @@ jobs:
   build-radar:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '24'
+        node-version: '22'
 
     - name: Install dependencies
       working-directory: ./tech-radar
-      run: npm install
+      run: |
+        npm ci
+        npm audit
+
+    - name: Setup snyk
+      uses: snyk/actions/setup@0.4.0
+
+    - name: Snyk scan
+      working-directory: ./tech-radar
+      run: |
+        snyk test
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
 
     - name: Generate radar image
       working-directory: ./tech-radar
@@ -36,8 +49,12 @@ jobs:
     needs: build-radar
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: ruby/setup-ruby@v1
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
         bundler-cache: true
@@ -45,7 +62,19 @@ jobs:
     - name: Install dependencies
       working-directory: ./documentation
       run: |
-        bundle install
+        bundle install --deployment
+      env:
+        BUNDLE_FROZEN: true
+
+    - name: Setup snyk
+      uses: snyk/actions/setup@0.4.0
+
+    - name: Snyk scan
+      working-directory: ./documentation
+      run: |
+        snyk test
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
 
     - name: Build site
       working-directory: ./documentation
