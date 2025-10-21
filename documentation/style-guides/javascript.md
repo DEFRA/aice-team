@@ -107,7 +107,7 @@ All project dependencies must be managed using the `package.json` file. Use `npm
 
 Ensure that you pin dependencies to specific versions to avoid unexpected issues due to version changes. Do not use range specifiers (`^`, `~`, etc.) and only pin to exact versions.
 
-```json
+```jsonc
 // Do this
 {
   "name": "my_project",
