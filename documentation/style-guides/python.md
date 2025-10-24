@@ -143,4 +143,4 @@ See the following guidelines:
 ## Contributions
 If you would like to contribute to this style guide, please open a pull request on the [Defra AICE Team GitHub](https://github.com/DEFRA/aice-team) repository.
 
-For anything that is not covered by this style guide, we recommend following the [Defra JavaScript Standards](https://defra.github.io/software-development-standards/standards/javascript_standards/) and staying consistent with the existing codebase. If alignment across AICE is required, please raise an issue in [Defra AICE Team GitHub](https://github.com/DEFRA/aice-team/issues).
+For anything that is not covered by this style guide, we recommend following the [GDS Python style guide](https://gds-way.digital.cabinet-office.gov.uk/manuals/programming-languages/python/python.html) and staying consistent with the existing codebase. If alignment across AICE is required, please raise an issue in [Defra AICE Team GitHub](https://github.com/DEFRA/aice-team/issues).
