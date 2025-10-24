@@ -1,3 +1,8 @@
+---
+layout: default
+title: JavaScript Style Guide
+---
+
 # JavaScript Style Guide
 
 This page outlines the style guide / coding conventions for JavaScript code within the Defra AICE team.

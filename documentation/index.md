@@ -1,3 +1,8 @@
+---
+layout: default
+title: Home
+---
+
 # AI Capabilities and Enablement (AICE) Team
 Version 1.0.0
 
@@ -8,7 +13,7 @@ This site contains documentation for the Defra AI Capabilities and Enablement (A
 ## Table of Contents
 1. [Welcome](.)
 2. Style Guides
-    - [JavaScript Style Guide](style-guides/javascript.md)
-    - [Python Style Guide](style-guides/python.md)
+    - [JavaScript Style Guide](style-guides/javascript)
+    - [Python Style Guide](style-guides/python)
 
 ---

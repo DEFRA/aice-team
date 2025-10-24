@@ -1,3 +1,8 @@
+---
+layout: default
+title: AICE Tech Radar
+---
+
 # AICE Tech Radar
 
 This page contains the latest edition of the AICE Technology Radar.

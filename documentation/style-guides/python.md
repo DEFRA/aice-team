@@ -1,3 +1,8 @@
+---
+layout: default
+title: Python Style Guide
+---
+
 # Python Style Guide
 
 This page outlines the style guide / coding conventions for Python projects within the Defra AICE team.
