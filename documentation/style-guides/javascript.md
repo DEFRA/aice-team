@@ -13,29 +13,30 @@ This guide is an extension to the [Defra JavaScript Standards](https://defra.git
 
 - [1 JavaScript Project Rules](#1-javascript-project-rules)
   - [1.1 Linting / Formatting](#11-linting--formatting)
-  - [1.2 Module System](#12-module-system)
-    - [1.2.1 Imports](#121-imports)
-    - [1.2.2 Exports](#122-exports)
-  - [1.3 Testing](#13-testing)
-    - [1.3.1 Mocking](#131-mocking)
+  - [1.2 Testing](#12-testing)
+    - [1.2.1 Mocking](#121-mocking)
+  - [1.3 Dependency Management](#13-dependency-management)
   - [1.4 Documentation](#14-documentation)
 - [2 JavaScript Style Guide](#2-javascript-style-guide)
-  - [2.1 Source Files](#21-source-files)
-    - [2.1.1 File Naming](#211-file-naming)
-    - [2.1.2 Formatting](#212-formatting)
-    - [2.1.3 Indentation](#213-indentation)
-    - [2.1.4 Semicolons](#214-semicolons)
-    - [2.1.5 Line Length Limit](#215-line-length-limit)
-  - [2.2 Variable Declarations](#22-variable-declarations)
-  - [2.3 Functions](#23-functions)
-    - [2.3.1 Function Declarations](#231-function-declarations)
-    - [2.3.2 Function Expressions](#232-function-expressions)
-    - [2.3.3 Parameters](#233-parameters)
-    - [2.3.4 Object Method Definition](#234-object-method-definition)
-  - [2.4 Strings](#24-strings)
-    - [2.4.1 String Literals](#241-string-literals)
-    - [2.4.2 Template Literals](#242-template-literals)
-  - [2.5 Classes](#25-classes)
+  - [2.1 Module System](#21-module-system)
+    - [2.1.1 Imports](#211-imports)
+    - [2.1.2 Exports](#212-exports)
+  - [2.2 Source Files](#22-source-files)
+    - [2.2.1 File Naming](#221-file-naming)
+    - [2.2.2 Formatting](#222-formatting)
+    - [2.2.3 Indentation](#223-indentation)
+    - [2.2.4 Semicolons](#224-semicolons)
+    - [2.2.5 Line Length Limit](#225-line-length-limit)
+  - [2.3 Variable Declarations](#23-variable-declarations)
+  - [2.4 Functions](#24-functions)
+    - [2.4.1 Function Declarations](#241-function-declarations)
+    - [2.4.2 Function Expressions](#242-function-expressions)
+    - [2.4.3 Parameters](#243-parameters)
+    - [2.4.4 Object Method Definition](#244-object-method-definition)
+  - [2.5 Strings](#25-strings)
+    - [2.5.1 String Literals](#251-string-literals)
+    - [2.5.2 Template Literals](#252-template-literals)
+  - [2.6 Classes](#26-classes)
 - [Contributions](#contributions)
 
 ## 1 JavaScript Project Rules
@@ -45,69 +46,17 @@ The Defra JavaScript Standards enforces using ESLint using only [neostandard](ht
 
 All ESLint rules enabled in neostandard by default can be found [here](https://eslint.style/rules), however, key rules are highlighted below.
 
-### 1.2 Module System
-The AICE team uses ES modules for JavaScript code. Each module should be defined in its own file, and the file name should match the module name.
-
-#### 1.2.1 Imports
-All module imports should use ES `import` syntax and not CommonJS `require` syntax. The import statements should be placed at the top of the file, before any other code.
-
-All imports should be at the top of the file, and they should be grouped in the following order alphabetically:
-1. External libraries
-2. Internal modules
-
-Do this:
-```javascript
-import Hapi from '@hapi/hapi'
-
-import myModule from './my-module.js'
-```
-
-Don't do this:
-```javascript
-const Hapi = require('@hapi/hapi')
-
-const myModule = require('./my-module.js')
-```
-
-#### 1.2.2 Exports
-All module exports should use ES `export` syntax and not CommonJS `module.exports`. The export statements should be placed at the bottom of the file, after all other code.
-
-Always use named exports, default exports are not allowed.
-
-Do this:
-```javascript
-function myFunction() {
-  // function code
-}
-
-export { 
-  myFunction 
-}
-```
-
-Don't do this:
-```javascript
-export default function myFunction() {
-  // function code
-}
-
-// or this
-module.exports = function myFunction() {
-  // function code
-}
-```
-
-### 1.3 Testing
+### 1.2 Testing
 We use [Vitest](https://vitest.dev/) for testing JavaScript code. All tests should be placed in a dedicated `tests` directory at the root of the project. Each test file should be named after the module it tests, with a `.test.js` suffix.
 
 Test files should not be placed in the same directory as the module under test.
 
-#### 1.3.1 Mocking
+#### 1.2.1 Mocking
 When mocking dependencies in tests, if not using dependency injection, you should use the `vi.mock()` function provided by Vitest. You should not use any other mocking library such as `sinon` or `jest.mock()`.
 
 You should also only mock dependencies that the team owns or has control over. If a dependency is an external library, you should not mock it unless absolutely necessary. In these cases, you should consider using a integration test instead of a unit test.
 
-### 1.4 Dependency Management
+### 1.3 Dependency Management
 All project dependencies must be managed using the `package.json` file. Use `npm` commands to add, update, or remove dependencies to ensure that the `package.json` file is kept up to date.
 
 Ensure that you pin dependencies to specific versions to avoid unexpected issues due to version changes. Do not use range specifiers (`^`, `~`, etc.) and only pin to exact versions.
@@ -182,9 +131,74 @@ function add(a, b) {
 
 ## 2 JavaScript Style Guide
 
-### 2.1 Source Files
+### 2.1 Module System
+The AICE team uses ES modules for JavaScript code. Each module should be defined in its own file, and the file name should match the module name.
 
-#### 2.1.1 File Naming
+#### 2.1.1 Imports
+All module imports should use ES `import` syntax and not CommonJS `require` syntax. The import statements should be placed at the top of the file, before any other code.
+
+Don't do this:
+```javascript
+const Hapi = require('@hapi/hapi')
+const myModule = require('./my-module.js')
+```
+
+`import` statements should only be used for importing modules or packages. Avoid using `import` statements to import individual classes, functions, or variables from modules.
+
+By default, you should use namespace imports (`import * as moduleName`) to import entire modules. This approach provides better clarity about where functions and objects come from in your code.
+
+You can also use default imports when importing from modules that provide default exports, though namespace imports are still preferred when available.
+
+All imports should be at the top of the file, and they should be grouped in the following order alphabetically:
+1. External libraries
+2. Internal modules
+
+Do this:
+```javascript
+// Namespace imports (preferred)
+import * as myModule from './my-module.js'
+
+// or (if a default export is available)
+import Hapi from '@hapi/hapi'
+```
+
+Don't do this:
+```javascript
+import { server, start } from '@hapi/hapi'
+import { myFunction, MyClass } from './my-module.js'
+```
+
+#### 2.1.2 Exports
+All module exports should use ES `export` syntax and not CommonJS `module.exports`. The export statements should be placed at the bottom of the file, after all other code.
+
+Always use named exports, default exports are not allowed.
+
+Do this:
+```javascript
+function myFunction() {
+  // function code
+}
+
+export { 
+  myFunction 
+}
+```
+
+Don't do this:
+```javascript
+export default function myFunction() {
+  // function code
+}
+
+// or this
+module.exports = function myFunction() {
+  // function code
+}
+```
+
+### 2.2 Source Files
+
+#### 2.2.1 File Naming
 
 All source files should be UTF-8 encoded and have a `.js` extension. The file name must also be in kebab-case, which is a lower-case name with words separated by hyphens. For example, `my-awesome-file.js`.
 
@@ -192,12 +206,12 @@ The file name should be descriptive of the module's purpose and functionality. A
 
 For example, a good file name for a server module might be `server.js`, while a bad file name might be `s.js` or `initialise.js`.
 
-#### 2.1.2 Formatting
+#### 2.2.2 Formatting
 
-#### 2.1.3 Indentation
+#### 2.2.3 Indentation
 All code blocks should be indented with 2 spaces. Tabs are not allowed.
 
-#### 2.1.4 Semicolons
+#### 2.2.4 Semicolons
 No semicolons should be used at the end of statements.
 
 Do this:
@@ -214,10 +228,10 @@ function myFunction() {
 }
 ```
 
-#### 2.1.5 Line Length Limit
+#### 2.2.5 Line Length Limit
 The maximum line length is 80 characters. Lines should be wrapped or refactored to fit within this limit.
 
-### 2.2 Variable Declarations
+### 2.3 Variable Declarations
 All variables should be declared using `const` by default. If a variable needs to be reassigned, use `let`. Using var is not allowed.
 
 Do this:
@@ -235,15 +249,11 @@ Don't do this:
 var myVariable = 'Hello, world!'
 ```
 
-### 2.3 Functions
+### 2.4 Functions
 
-#### 2.3.1 Function Declarations
+#### 2.4.1 Function Declarations
 
 In general, function declarations should be used instead of function expressions (aka anonymous or arrow functions).
-
-Essentially, if the function needs to be called by name, use a function declaration.
-
-If the function is only used as a callback, use an arrow function.
 
 Do this:
 ```javascript
@@ -264,7 +274,7 @@ const myFunction = () => {
 }
 ```
 
-#### 2.3.2 Function Expressions
+#### 2.4.2 Function Expressions
 An exception to the rule of using function declarations is when the function is only being used as a callback or to handle an event, in which case a function expression is acceptable.
 
 Essentially, if a function needs to be called by name, use a function declaration. If the function is only used as a callback, use a function expression.
@@ -281,7 +291,7 @@ test('my test', () => {
 })
 ```
 
-#### 2.3.3 Parameters
+#### 2.4.3 Parameters
 When using arrow functions, parentheses are required around the parameters, even if there is only one parameter.
 
 Do this:
@@ -298,7 +308,7 @@ process.on('uncaughtException', error => {
 })
 ```
 
-#### 2.3.4 Object Method Definition
+#### 2.4.4 Object Method Definition
 
 When defining methods inside objects, use the method definition syntax.
 
@@ -325,15 +335,15 @@ const entity = {
 }
 ```
 
-### 2.4 Strings
+### 2.5 Strings
 
-#### 2.4.1 String Literals
+#### 2.5.1 String Literals
 All strings should use single quotes (`'`) for string literals. Double quotes (`"`) are not allowed.
 
-#### 2.4.2 Template Literals
+#### 2.5.2 Template Literals
 Template literals should be used for multi-line strings or when string interpolation is required. For simple strings, use single quotes.
 
-### 2.5 Classes
+### 2.6 Classes
 In general, classes are not used in AICE JavaScript code as they are not necessary for most use cases and result in more boilerplate for no added benefit. Instead, export standalone functions from modules or use factory functions to create objects.
 
 If a class is necessary, e.g. you need to encapsulate state or share a dependency instance across methods, then you should use ES6 style classes. The class name should be in PascalCase, and the file name should match the class name in kebab-case.
