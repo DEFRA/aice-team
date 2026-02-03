@@ -18,7 +18,8 @@ This guide is an extension to the [Defra JavaScript Standards](https://defra.git
     - [1.2.2 Exports](#122-exports)
   - [1.3 Testing](#13-testing)
     - [1.3.1 Mocking](#131-mocking)
-  - [1.4 Documentation](#14-documentation)
+  - [1.4 Dependency Management](#14-dependency-management)
+  - [1.5 Documentation](#15-documentation)
 - [2 JavaScript Style Guide](#2-javascript-style-guide)
   - [2.1 Source Files](#21-source-files)
     - [2.1.1 File Naming](#211-file-naming)
@@ -134,7 +135,24 @@ Ensure that you pin dependencies to specific versions to avoid unexpected issues
 }
 ```
 
-### 1.4 Documentation
+#### 1.4.1 .npmrc Configuration
+All projects must include an `.npmrc` file at the root of the project with the following configuration:
+```
+save-exact=true
+ignore-scripts=true
+```
+
+`save-exact=true` ensures that all dependencies are pinned to exact versions when added to the `package.json` file.
+`ignore-scripts=true` prevents the execution of lifecycle scripts when running npm commands. Lifecycle scripts have been exploited in recent supply chain attacks, so this setting helps to mitigate that risk.
+
+#### 1.4.2 Security Audits
+All projects must regularly run `npm audit` and preferably other security scanning tools to identify and address any known vulnerabilities in project dependencies. Any vulnerabilities found should be addressed promptly by updating or replacing the affected dependencies.
+
+These audits should also be automated as part of our CI pipelines and nightly scheduled scans. See the following GitHub actions for an example of how to set this up:
+- [scan.yml](https://github.com/DEFRA/ai-defra-search-frontend/blob/main/.github/workflows/scan.yml)
+- [check-pull-request.yml](https://github.com/DEFRA/ai-defra-search-frontend/blob/main/.github/workflows/check-pull-request.yml)
+
+### 1.5 Documentation
 All functions, classes, and modules should be documented using JSDoc comments. However, you should take a pragmatic approach to using JSDocs. Only document what is necessary to understand the code, and avoid over-documenting.
 
 For example, when creating a function or a class, you should document:
