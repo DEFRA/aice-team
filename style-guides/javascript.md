@@ -19,6 +19,8 @@ This guide is an extension to the [Defra JavaScript Standards](https://defra.git
   - [1.3 Testing](#13-testing)
     - [1.3.1 Mocking](#131-mocking)
   - [1.4 Dependency Management](#14-dependency-management)
+    - [1.4.1 .npmrc Configuration](#141-npmrc-configuration)
+    - [1.4.2 Security Scanning](#142-security-scanning)
   - [1.5 Documentation](#15-documentation)
 - [2 JavaScript Style Guide](#2-javascript-style-guide)
   - [2.1 Source Files](#21-source-files)
@@ -145,8 +147,8 @@ ignore-scripts=true
 `save-exact=true` ensures that all dependencies are pinned to exact versions when added to the `package.json` file.
 `ignore-scripts=true` prevents the execution of lifecycle scripts when running npm commands. Lifecycle scripts have been exploited in recent supply chain attacks, so this setting helps to mitigate that risk.
 
-#### 1.4.2 Security Audits
-All projects must regularly run `npm audit` and preferably other security scanning tools to identify and address any known vulnerabilities in project dependencies. Any vulnerabilities found should be addressed promptly by updating or replacing the affected dependencies.
+#### 1.4.2 Security Scanning
+All projects must regularly run `npm audit` and preferably other security scanning tools to identify and flag any known vulnerabilities in project dependencies. Any vulnerabilities found should be addressed promptly by updating or replacing the affected dependencies.
 
 These audits should also be automated as part of our CI pipelines and nightly scheduled scans. See the following GitHub actions for an example of how to set this up:
 - [scan.yml](https://github.com/DEFRA/ai-defra-search-frontend/blob/main/.github/workflows/scan.yml)
