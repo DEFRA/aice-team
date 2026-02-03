@@ -1,5 +1,5 @@
 # AI Capabilities and Enablement (AICE) Team
-This site contains documentation for the Defra AI Capabilities and Enablement (AICE) Team.
+This repository contains guides and documentation specific to the AI Capabilities and Enablement (AICE) team.
 
 ## Contents
 - Style Guides
