@@ -28,6 +28,11 @@ This page outlines the style guide / coding conventions for Python projects with
     - [2.1.2 Imports](#212-imports)
     - [2.1.2 Relative Imports](#212-relative-imports)
   - [2.2 Naming Conventions](#22-naming-conventions)
+  - [2.3 Type hints](#23-type-hints)
+    - [2.3.1 MyPy Configuration](#231-mypy-configuration)
+    - [2.3.2 Type Annotation Guidelines](#232-type-annotation-guidelines)
+    - [2.3.3 Type Imports](#233-type-imports)
+    - [2.3.4 Third-party Library Integration](#234-third-party-library-integration)
 - [Contributions](#contributions)
 
 ## 1 Python Project Rules
@@ -144,6 +149,90 @@ See the following guidelines:
 |Functions / class methods|`snake_case`|`_snake_case`|
 |Constants|`UPPER_SNAKE_CASE`|N/A|
 |Local / instance variables|`snake_case`|`_snake_case`|
+
+
+### 2.3 Type hints
+
+All production Python code must use type hints and be verified with MyPy. 
+Type hints improve code readability, help catch bugs early, and enable better IDE support.
+
+#### 2.3.1 MyPy Configuration
+
+Configure MyPy in your `pyproject.toml` file with strict settings:
+
+```toml
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+explicit_package_bases = true
+```
+
+#### 2.3.2 Type Annotation Guidelines
+
+**Use Modern Union Syntax**: Use the `|` operator for unions (Python 3.10+):
+```python
+# Do this
+username: str | None = None
+config: dict[str, Any] | None = None
+
+# Not this
+username: Optional[str] = None
+config: Optional[Dict[str, Any]] = None
+```
+
+**Function Type Annotations**: All functions must have parameter and return type annotations:
+```python
+def process_data(data: str, timeout: int = 30) -> dict[str, Any]:
+    return {"result": data, "timeout": timeout}
+
+async def fetch_user(user_id: str) -> dict[str, str]:
+    return {"id": user_id, "name": "John"}
+```
+
+**Use Built-in Generics**: Use built-in generic types instead of importing from `typing` (Python 3.9+):
+```python
+# Do this
+user_cache: dict[str, Any] = {}
+active_sessions: list[str] = []
+
+# Not this
+from typing import Dict, List, Any
+user_cache: Dict[str, Any] = {}
+active_sessions: List[str] = []
+```
+
+**Variable Type Annotations**: Add type annotations for module-level variables and class attributes:
+```python
+client: AsyncMongoClient | None = None
+ctx_trace_id: contextvars.ContextVar[str] = contextvars.ContextVar("trace_id")
+```
+
+#### 2.3.3 Type Imports
+
+Import types from their modern locations:
+```python
+# Prefer collections.abc for abstract base classes
+from collections.abc import AsyncGenerator, Callable, Awaitable
+
+# Use typing only when necessary
+from typing import Any
+```
+
+#### 2.3.4 Third-party Library Integration
+
+For libraries without type stubs, use MyPy overrides rather than inline ignore comments:
+```toml
+[[tool.mypy.overrides]]
+module = "pymongo.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "boto3.*"
+ignore_missing_imports = true
+```
+
+
 
 ## Contributions
 If you would like to contribute to this style guide, please open a pull request on the [Defra AICE Team GitHub](https://github.com/DEFRA/aice-team) repository.
