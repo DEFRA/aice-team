@@ -98,6 +98,16 @@ dependencies = [
 
 You must also routinely scan and update dependencies to ensure that they are up to date and do not contain any known security vulnerabilities.
 
+#### 1.4.1 Dependency Updates
+Do not update to the latest cutting edge version of a dependency unless absolutely necessary (e.g. to fix a critical security vulnerability). Always prefer updating to a stable version that has been available for a reasonable amount of time.
+
+All projects must use the `exclude-newer` option in `uv` to prevent newly released versions from being automatically considered. This must be set in `pyproject.toml` to at least 1 week:
+
+```toml
+[tool.uv]
+exclude-newer = "1 week"
+```
+
 ## 2 Python Style Guide
 
 ### 2.1 Modules
