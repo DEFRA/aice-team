@@ -16,7 +16,6 @@ This page outlines the style guide / coding conventions for GitHub Actions workf
   - [1.2 Security](#12-security)
     - [1.2.1 Permissions](#121-permissions)
     - [1.2.2 Secrets](#122-secrets)
-    - [1.2.3 Script Injection](#123-script-injection)
   - [1.3 Third-Party Actions](#13-third-party-actions)
   - [1.4 Security Scanning](#14-security-scanning)
     - [1.4.1 scan.yml — Reusable Scan Workflow](#141-scanyml--reusable-scan-workflow)
