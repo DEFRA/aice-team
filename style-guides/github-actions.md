@@ -63,52 +63,6 @@ See the following for reference implementations:
 
 Always apply the principle of least privilege to the `GITHUB_TOKEN`. Set the default permissions to read-only at the workflow level, then grant only the specific write permissions required per job.
 
-Do this:
-
-```yaml
-permissions:
-  contents: read
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@<commit-sha> # see section 1.3
-
-  publish:
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-    steps:
-      - name: Publish package
-        run: npm publish
-```
-
-Don't do this:
-
-```yaml
-# Avoid — grants broad write access by default
-permissions:
-  contents: write
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@<commit-sha>
-```
-
-Publish workflows that deploy to cloud infrastructure require `id-token: write` to authenticate via OIDC. Scope this at the workflow level and document why it is needed:
-
-```yaml
-permissions:
-  id-token: write   # required for OIDC authentication to AWS
-  contents: write
-  pull-requests: write
-```
-
-Do not allow workflows to create or approve pull requests unless explicitly required and reviewed.
-
 #### 1.2.2 Secrets
 
 Sensitive values must always be stored as [GitHub secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) and never hardcoded in workflow files or stored as GitHub environment variables.
@@ -134,35 +88,6 @@ Do not hardcode secrets in workflow files:
 # Never do this
 - name: Deploy
   run: ./deploy.sh --key "my-secret-api-key"
-```
-
-#### 1.2.3 Script Injection
-
-Be cautious when using GitHub context values (e.g. `github.event.pull_request.title`, `github.head_ref`) directly inside `run` steps. These values can contain attacker-controlled input and may lead to script injection.
-
-Prefer creating a dedicated JavaScript action to process untrusted context values. When an inline script is necessary, always assign the context value to an intermediate environment variable rather than interpolating it directly into the script.
-
-Do this:
-
-```yaml
-- name: Check PR title
-  env:
-    TITLE: ${{ github.event.pull_request.title }}
-  run: |
-    if [[ "$TITLE" =~ ^feat ]]; then
-      echo "Valid title"
-    fi
-```
-
-Don't do this:
-
-```yaml
-# Vulnerable to script injection
-- name: Check PR title
-  run: |
-    if [[ "${{ github.event.pull_request.title }}" =~ ^feat ]]; then
-      echo "Valid title"
-    fi
 ```
 
 ### 1.3 Third-Party Actions
@@ -269,7 +194,7 @@ Any vulnerabilities found must be addressed promptly by updating or replacing th
 
 All repositories must be connected to [SonarCloud](https://sonarcloud.io/) for static analysis and code quality scanning. The SonarCloud scan job runs within `scan.yml` alongside the Trivy scan.
 
-The SonarCloud job should be skipped for scheduled runs and Dependabot-triggered runs, as it requires a valid `SONAR_TOKEN` scoped to a branch or PR:
+The SonarCloud job should be skipped for scheduled runs, as it requires a valid `SONAR_TOKEN` scoped to a branch or PR:
 
 ```yaml
 jobs:
