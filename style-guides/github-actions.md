@@ -167,7 +167,11 @@ Don't do this:
 
 ### 1.3 Third-Party Actions
 
-Pinning third-party actions to a full-length commit SHA is the only way to guarantee immutability and is required for all AICE projects. Pinning to a tag (e.g. `v4`) is insufficient as tags can be moved or deleted.
+Like with dependencies, avoid using a third-party action that can be easily replaced with a custom script or action that the project controls. For example, if you have step to check for a version bump, it's safer to implement this as a custom script that lives in the repository rather than using a third-party action that performs this check. This reduces the attack surface and ensures you have full visibility and control over the code being executed in your workflows.
+
+Where a third-party action is necessary, pin to a specific commit SHA and monitor the action's repository for security issues or updates. If the action becomes unmaintained or has a security vulnerability, replace it with an alternative or custom implementation as soon as possible.
+
+Before using a third-party action, audit its source code to verify it handles repository contents and secrets as expected. Prefer actions from [GitHub Verified Creators](https://github.com/marketplace?type=actions&verification=verified_creator) where possible.
 
 Do this:
 
@@ -184,26 +188,6 @@ Don't do this:
 
 # No pin at all
 - uses: actions/checkout@main
-```
-
-Before using a third-party action, audit its source code to verify it handles repository contents and secrets as expected. Prefer actions from [GitHub Verified Creators](https://github.com/marketplace?type=actions&verification=verified_creator) where possible.
-
-Use [Dependabot version updates](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot) to keep pinned action SHAs up to date. Add the following to `.github/dependabot.yml`:
-
-```yaml
-version: 2
-updates:
-  - package-ecosystem: github-actions
-    directory: /
-    schedule:
-      interval: weekly
-```
-
-Use [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) to require review from a designated owner before any changes to workflow files are merged:
-
-```
-# .github/CODEOWNERS
-.github/workflows/ @your-team/workflow-owners
 ```
 
 ### 1.4 Security Scanning
