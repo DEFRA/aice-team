@@ -19,8 +19,9 @@ This guide is an extension to the [Defra JavaScript Standards](https://defra.git
   - [1.3 Testing](#13-testing)
     - [1.3.1 Mocking](#131-mocking)
   - [1.4 Dependency Management](#14-dependency-management)
-    - [1.4.1 .npmrc Configuration](#141-npmrc-configuration)
-    - [1.4.2 Security Scanning](#142-security-scanning)
+    - [1.4.1 Dependency Updates](#141-dependency-updates)
+    - [1.4.2 .npmrc Configuration](#142-npmrc-configuration)
+    - [1.4.3 Security Scanning](#143-security-scanning)
   - [1.5 Documentation](#15-documentation)
 - [2 JavaScript Style Guide](#2-javascript-style-guide)
   - [2.1 Source Files](#21-source-files)
@@ -110,6 +111,18 @@ When mocking dependencies in tests, if not using dependency injection, you shoul
 
 You should also only mock dependencies that the team owns or has control over. If a dependency is an external library, you should not mock it unless absolutely necessary. In these cases, you should consider using a integration test instead of a unit test.
 
+### 1.4 Node.js Version
+All new JavaScript projects should target the current active LTS version of Node.js (currently Node 24) to ensure compatibility with the latest features and security updates. If you are maintaining an existing project that targets an older version of Node.js, you should consider upgrading to the latest LTS version as soon as possible.
+
+We recommend using [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm) to manage Node.js versions on development machines. This allows developers to easily switch between different versions of Node.js for different projects.
+
+#### 1.4.1 .nvmrc Configuration
+All projects should include a `.nvmrc` file at the root of the project with the Node.js version specified. This helps to ensure that all developers are using the same version of Node.js and can help to avoid compatibility issues.
+
+```
+v24.14.1
+```
+
 ### 1.4 Dependency Management
 All project dependencies must be managed using the `package.json` file. Use `npm` commands to add, update, or remove dependencies to ensure that the `package.json` file is kept up to date.
 
@@ -137,17 +150,30 @@ Ensure that you pin dependencies to specific versions to avoid unexpected issues
 }
 ```
 
-#### 1.4.1 .npmrc Configuration
-All projects must include an `.npmrc` file at the root of the project with the following configuration:
+#### 1.4.1 Dependency Updates
+Do not update to the latest cutting edge version of a dependency unless absolutely necessary (e.g. to fix a critical security vulnerability). Always prefer updating to a stable version that has been available for a reasonable amount of time.
+
+You must use the `min-release-age` option in npm to prevent newly released versions from being automatically considered. This is required for projects targeting Node.js v24+ and npm v11.11.0+. If your project targets an older version of Node.js, you should upgrade to Node.js v24+ where possible to take advantage of this feature. See [1.4.2 .npmrc Configuration](#142-npmrc-configuration) for the required configuration.
+
+#### 1.4.2 .npmrc Configuration
+All projects must include an `.npmrc` file at the root of the project. All projects regardless of Node.js version should include the following configuration:
 ```
 save-exact=true
 ignore-scripts=true
 ```
 
+> [!IMPORTANT]
+> The `min-release-age` option is only supported in npm v11.11.0 and later, which requires Node.js v24 or later. If your project meets these requirements, you **must** also include the following configuration in your `.npmrc` file:
+```
+min-release-age=7
+```
+> If your project does not yet target Node.js v24+, you should upgrade where possible to enable `min-release-age` support.
+
 `save-exact=true` ensures that all dependencies are pinned to exact versions when added to the `package.json` file.
 `ignore-scripts=true` prevents the execution of lifecycle scripts when running npm commands. Lifecycle scripts have been exploited in recent supply chain attacks, so this setting helps to mitigate that risk.
+`min-release-age=7` prevents newly released versions of dependencies from being resolved for 7 days after their release date, giving time for any critical issues to be identified and/or supply chain attacks to be mitigated.
 
-#### 1.4.2 Security Scanning
+#### 1.4.3 Security Scanning
 All projects must regularly run `npm audit` and preferably other security scanning tools to identify and flag any known vulnerabilities in project dependencies. Any vulnerabilities found should be addressed promptly by updating or replacing the affected dependencies.
 
 These audits should also be automated as part of our CI pipelines and nightly scheduled scans. See the following GitHub actions for an example of how to set this up:
