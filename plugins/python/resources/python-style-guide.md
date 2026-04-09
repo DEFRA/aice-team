@@ -242,8 +242,6 @@ module = "boto3.*"
 ignore_missing_imports = true
 ```
 
-
-
 ## Contributions
 If you would like to contribute to this style guide, please open a pull request on the [Defra AICE Team GitHub](https://github.com/DEFRA/aice-team) repository.
 
