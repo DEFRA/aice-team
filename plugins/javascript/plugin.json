@@ -1,0 +1,11 @@
+{
+  "name": "aice-javascript",
+  "description": "JavaScript style guide skill for AICE JavaScript projects",
+  "version": "1.0.0",
+  "author": {
+    "name": "Defra AICE Team"
+  },
+  "license": "OGL-UK-3.0",
+  "keywords": ["javascript", "defra", "aice", "style-guide"],
+  "skills": "skills/"
+}

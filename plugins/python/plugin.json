@@ -1,0 +1,12 @@
+{
+  "name": "aice-python",
+  "description": "Python style guide skill and code writer/reviewer agents for AICE Python projects",
+  "version": "1.0.0",
+  "author": {
+    "name": "Defra AICE Team"
+  },
+  "license": "OGL-UK-3.0",
+  "keywords": ["python", "defra", "aice", "style-guide"],
+  "agents": "agents/",
+  "skills": "skills/"
+}

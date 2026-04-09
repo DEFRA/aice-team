@@ -1,0 +1,35 @@
+name: Check style guide resources are in sync
+
+on:
+  pull_request:
+    paths:
+      - 'style-guides/**'
+      - 'plugins/**/resources/**'
+
+permissions:
+  contents: read
+
+jobs:
+  check-sync:
+    name: Verify plugin resources match style guides
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Diff style guides against plugin resources
+        run: |
+          fail=0
+
+          check() {
+            if ! diff -q "$1" "$2" > /dev/null 2>&1; then
+              echo "::error::$2 is out of sync with $1 — run: cp $1 $2"
+              fail=1
+            fi
+          }
+
+          check style-guides/python.md         plugins/python/resources/python.md
+          check style-guides/javascript.md     plugins/javascript/resources/javascript.md
+          check style-guides/github-actions.md plugins/github-actions/resources/github-actions.md
+
+          exit $fail
