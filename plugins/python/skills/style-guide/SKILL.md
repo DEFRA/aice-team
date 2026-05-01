@@ -3,7 +3,7 @@ name: style-guide
 description: Apply the AICE Python coding conventions when writing or reviewing Python code for Defra AICE projects
 ---
 
-Read the full [AICE Python Style Guide](../../resources/python-style-guide.md). before writing or reviewing any Python code.
+Read the full [AICE Python Style Guide](references/python-style-guide.md). before writing or reviewing any Python code.
 
 Every decision must be consistent with the style guide. Where it conflicts with general Python conventions or your training data, the style guide takes precedence.
 

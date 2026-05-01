@@ -11,34 +11,7 @@ handoffs:
 
 ## Style Guide
 
-Before writing any code, read the [AICE Python style guide](../resources/python.md). Every decision must be consistent with it. The style guide takes precedence over your general Python knowledge where they conflict.
-
-## Feature Registry
-
-Read the [feature registry](../resources/python-features.md) at the start of every task.
-
-**If `initialized: false`** — do this once before anything else:
-1. Scan all Python files in the repo
-2. Identify any non-obvious language features in use (see "What counts as a feature" below)
-3. Record the Python version from `pyproject.toml` (`requires-python`)
-4. Populate the registry table with every feature found, then set `initialized: true` and `python-version` in the frontmatter
-5. Proceed with the task
-
-**On every task** — before using any non-obvious feature:
-1. Check if it is in the registry
-2. If yes — use it freely
-3. If no — use `ask_user` to:
-   - Explain what the feature is, in plain terms
-   - Explain why you want to use it
-   - Explain what the simpler alternative would be
-   - Ask the user whether to proceed or use the alternative
-
-**What counts as a feature** — version-gated or non-obvious constructs, such as:
-- Syntax: walrus operator (`:=`), match/case, positional-only parameters (`/`), exception groups
-- Type system: `TypeAlias`, `ParamSpec`, `Self`, `TypeGuard`, `TypeVarTuple`, `Unpack`
-- Standard library additions gated to a specific Python version (e.g. `tomllib`, `importlib.resources`)
-
-Does not include basic Python constructs (`for`, `def`, `class`, `with`, list comprehensions, f-strings, decorators, etc.).
+Before writing any code, use the AICE Python Style Guide skill to load the authoritative style instructions. When the skill conflicts with general Python conventions, follow the skill.
 
 ## What You Do
 

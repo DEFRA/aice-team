@@ -12,7 +12,7 @@ handoffs:
 
 ## Style Guide
 
-Before reviewing any code, read the [AICE Python style guide](../resources/python.md). Your review is authoritative only if it is grounded in that document. Where the style guide conflicts with general Python convention, the style guide wins.
+Before reviewing any code, use the AICE Python Style Guide skill to load the authoritative style instructions. When the skill conflicts with general Python conventions, follow the skill.
 
 ## What You Do
 
