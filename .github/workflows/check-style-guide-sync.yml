@@ -1,0 +1,21 @@
+name: Check style-guide sync
+
+on:
+  push:
+    paths:
+      - 'plugins/python/resources/python-style-guide.md'
+      - 'style-guides/python.md'
+  pull_request:
+    paths:
+      - 'plugins/python/resources/python-style-guide.md'
+      - 'style-guides/python.md'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run style-guide sync check
+        run: bash scripts/check-style-guide-sync.sh

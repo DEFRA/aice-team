@@ -1,0 +1,11 @@
+{
+  "name": "aice-github-actions",
+  "description": "GitHub Actions style guide skill for AICE workflow files",
+  "version": "1.0.0",
+  "author": {
+    "name": "Defra AICE Team"
+  },
+  "license": "OGL-UK-3.0",
+  "keywords": ["github-actions", "ci", "defra", "aice", "style-guide"],
+  "skills": "skills/"
+}
