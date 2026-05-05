@@ -3,28 +3,21 @@
   "owner": {
     "name": "Defra AICE Team"
   },
-  "metadata": {
-    "description": "Copilot CLI plugins for the Defra AI Capabilities and Enablement (AICE) team",
-    "version": "1.0.0"
-  },
   "plugins": [
     {
       "name": "aice-python",
-      "description": "Python style guide skill and code writer/reviewer agents for AICE Python projects",
-      "version": "1.0.0",
-      "source": "plugins/python"
+      "source": "./plugins/python",
+      "description": "Python style guide skill and code writer/reviewer agents for AICE Python projects"
     },
     {
       "name": "aice-javascript",
-      "description": "JavaScript style guide skill for AICE JavaScript projects",
-      "version": "1.0.0",
-      "source": "plugins/javascript"
+      "source": "./plugins/javascript",
+      "description": "JavaScript style guide skill for AICE JavaScript projects"
     },
     {
       "name": "aice-github-actions",
-      "description": "GitHub Actions style guide skill for AICE workflow files",
-      "version": "1.0.0",
-      "source": "plugins/github-actions"
+      "source": "./plugins/github-actions",
+      "description": "GitHub Actions style guide skill for AICE workflow files"
     }
   ]
 }
