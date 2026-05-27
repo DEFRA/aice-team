@@ -6,7 +6,5 @@
     "name": "Defra AICE Team"
   },
   "license": "OGL-UK-3.0",
-  "keywords": ["python", "defra", "aice", "style-guide"],
-  "agents": "agents/",
-  "skills": "skills/"
+  "keywords": ["python", "defra", "aice", "style-guide"]
 }

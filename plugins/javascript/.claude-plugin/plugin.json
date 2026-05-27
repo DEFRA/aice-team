@@ -6,6 +6,5 @@
     "name": "Defra AICE Team"
   },
   "license": "OGL-UK-3.0",
-  "keywords": ["javascript", "defra", "aice", "style-guide"],
-  "skills": "skills/"
+  "keywords": ["javascript", "defra", "aice", "style-guide"]
 }

@@ -6,6 +6,5 @@
     "name": "Defra AICE Team"
   },
   "license": "OGL-UK-3.0",
-  "keywords": ["github-actions", "ci", "defra", "aice", "style-guide"],
-  "skills": "skills/"
+  "keywords": ["github-actions", "ci", "defra", "aice", "style-guide"]
 }
