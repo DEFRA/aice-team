@@ -57,8 +57,6 @@ To update a style guide, edit the file in `style-guides/` and copy the change in
 
 > **Why not symlinks?** Symlinks work locally but break when a plugin is installed from a remote repository (`copilot plugin install OWNER/REPO:path`), because the symlink target does not exist in the installed copy.
 
-
-
 To add a new plugin or update an existing one:
 
 1. Create or update the plugin directory under `plugins/`
