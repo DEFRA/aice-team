@@ -41,20 +41,19 @@ plugins/<language>/
 ├── agents/                        # Agent definitions (*.agent.md)
 ├── skills/
 │   └── <skill-name>/
-│       └── SKILL.md               # Skill instructions
-└── resources/                     # Supporting files referenced by agents
+│       ├── SKILL.md               # Skill instructions
+│       └── references/            # Supporting files referenced by the skill
 ```
 
 ## Keeping style guides in sync
 
-The style guide source of truth lives in [`style-guides/`](../style-guides/). Each plugin carries a **copy** under `plugins/<language>/resources/` so that the plugin works correctly when installed remotely (where the rest of the repo is unavailable).
+The style guide source of truth lives in [`style-guides/`](../style-guides/). Each plugin's style-guide skill carries a **copy** under `plugins/<language>/skills/style-guide/references/` so that the plugin works correctly when installed remotely (where the rest of the repo is unavailable).
 
 Sync is automated:
 
-- **On merge to `main`**: the [`sync-style-guides`](../.github/workflows/sync-style-guides.yml) workflow copies each style guide into its plugin resources folder and commits the result.
-- **On pull request**: the [`check-style-guide-sync`](../.github/workflows/check-style-guide-sync.yml) workflow fails if `plugins/<language>/resources/` is out of date with `style-guides/`.
+- **On pull request**: the [`check-style-guide-sync`](../.github/workflows/check-style-guide-sync.yml) workflow fails if a skill's `references/` copy is out of date with `style-guides/`.
 
-To update a style guide, edit the file in `style-guides/` — the plugin resources will be updated automatically on merge. Do **not** edit the copies in `plugins/*/resources/` directly.
+To update a style guide, edit the file in `style-guides/` and copy the change into the corresponding `plugins/<language>/skills/style-guide/references/` file. Do **not** edit the copies in `plugins/*/skills/style-guide/references/` directly.
 
 > **Why not symlinks?** Symlinks work locally but break when a plugin is installed from a remote repository (`copilot plugin install OWNER/REPO:path`), because the symlink target does not exist in the installed copy.
 

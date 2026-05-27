@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-left="plugins/python/resources/python-style-guide.md"
+left="plugins/python/skills/style-guide/references/python-style-guide.md"
 right="style-guides/python.md"
 
 if [[ ! -f "$left" ]]; then
