@@ -67,9 +67,21 @@ See [references/components.md](references/components.md) for the full component 
 
 See [references/layouts.md](references/layouts.md) for a description of each layout type and when to use it.
 
+## Template system
+
+See [references/templates.md](references/templates.md) for the complete Nunjucks template hierarchy, data contract for each layout, and partials catalogue.
+
 ## Starting a new project
 
 1. Copy [assets/_variables.scss](assets/_variables.scss) into your project's SCSS.
 2. Import it alongside `govuk-frontend`.
-3. Reference [assets/layouts/page.njk](assets/layouts/page.njk) for the base layout template (header, nav, footer, breadcrumb bar) that all pages extend.
-4. Reference [assets/example-page.njk](assets/example-page.njk) for a Nunjucks entry/hub page template that extends the base layout, or [assets/example-page.html](assets/example-page.html) for a plain HTML annotated reference.
+3. Use [assets/layouts/page.njk](assets/layouts/page.njk) as the base layout — all pages extend it.
+4. Choose a sub-layout for each page type:
+   - `layouts/hub.njk` — landing pages and section gateways
+   - `layouts/article.njk` — standard content/guide pages
+   - `layouts/two-thirds.njk` — content pages with a required caption and description
+   - `layouts/section.njk` — pages within a multi-page section (sidebar section-nav)
+   - `layouts/side-nav.njk` — pages within a manual with a persistent broader section list
+5. Copy the partials from [assets/partials/](assets/partials/) into your project's template path and customise links for your service.
+6. See [references/templates.md](references/templates.md) for the full data contract (variable list) of each layout.
+7. Reference [assets/example-page.njk](assets/example-page.njk) for an annotated entry/hub page example, or [assets/example-page.html](assets/example-page.html) for a plain HTML reference.
