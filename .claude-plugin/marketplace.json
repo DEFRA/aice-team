@@ -12,7 +12,7 @@
     {
       "name": "aice-javascript",
       "source": "./plugins/javascript",
-      "description": "JavaScript style guide skill for AICE JavaScript projects"
+      "description": "JavaScript style guide, testing standards, design language, and code review standards skills for AICE JavaScript projects"
     },
     {
       "name": "aice-github-actions",

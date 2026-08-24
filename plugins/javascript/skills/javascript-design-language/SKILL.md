@@ -1,10 +1,13 @@
 ---
-name: aice-design-language
+name: javascript-design-language
 description: AICE (AI Capability and Enablement) design language reference for Defra digital services built on GOV.UK Frontend. Use when building or prototyping a frontend that should align with the AICE design language such as choosing brand colours, structuring page layouts, applying component classes, or copying SCSS tokens into a new project.
 compatibility: GOV.UK Frontend (GDS) based projects. Assets use SCSS and HTML.
 metadata:
   author: defra-aice
   version: "1.0"
+  github-repo: DEFRA/aice-team
+  github-ref: main
+  github-tree-sha: <sha at install time>
 ---
 
 # AICE Design Language

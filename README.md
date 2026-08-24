@@ -4,6 +4,8 @@ This repository contains guides and documentation specific to the AI Capabilitie
 ## Contents
 - Style Guides
   - [JavaScript Style Guide](style-guides/javascript.md)
+  - [JavaScript Testing Standards](style-guides/javascript-testing.md)
+  - [JavaScript Code Review Standards](style-guides/javascript-review.md)
   - [Python Style Guide](style-guides/python.md)
   - [GitHub Actions Style Guide](style-guides/github-actions.md)
 - [Copilot CLI Plugins](plugins/README.md)

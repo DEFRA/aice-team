@@ -16,7 +16,7 @@ Then install individual plugins as needed:
 # Python: style guide skill + python-writer and python-reviewer agents
 copilot plugin install aice-python@defra-aice
 
-# JavaScript: style guide skill
+# JavaScript: style guide, testing standards, and design language skills
 copilot plugin install aice-javascript@defra-aice
 
 # GitHub Actions: style guide skill
@@ -28,7 +28,7 @@ copilot plugin install aice-github-actions@defra-aice
 | Plugin | Skills | Agents |
 |--------|--------|--------|
 | [`python/`](python/) | `python-style-guide` | `python-writer`, `python-reviewer` |
-| [`javascript/`](javascript/) | `javascript-style-guide` | — |
+| [`javascript/`](javascript/) | `javascript-design-language`, `javascript-style-guide`, `javascript-testing-standards`, `javascript-review-standards` | — |
 | [`github-actions/`](github-actions/) | `github-actions-style-guide` | — |
 
 ## Structure
@@ -47,13 +47,13 @@ plugins/<language>/
 
 ## Keeping style guides in sync
 
-The style guide source of truth lives in [`style-guides/`](../style-guides/). Each plugin's style-guide skill carries a **copy** under `plugins/<language>/skills/style-guide/references/` so that the plugin works correctly when installed remotely (where the rest of the repo is unavailable).
+The style guide source of truth lives in [`style-guides/`](../style-guides/). Each plugin's style-guide skill carries a **copy** under `plugins/<language>/skills/<language>-style-guide/references/` so that the plugin works correctly when installed remotely (where the rest of the repo is unavailable).
 
 Sync is automated:
 
 - **On pull request**: the [`check-style-guide-sync`](../.github/workflows/check-style-guide-sync.yml) workflow fails if a skill's `references/` copy is out of date with `style-guides/`.
 
-To update a style guide, edit the file in `style-guides/` and copy the change into the corresponding `plugins/<language>/skills/style-guide/references/` file. Do **not** edit the copies in `plugins/*/skills/style-guide/references/` directly.
+To update a style guide, edit the file in `style-guides/` and copy the change into the corresponding `plugins/<language>/skills/<language>-style-guide/references/` file. Do **not** edit the copies in `plugins/*/skills/*-style-guide/references/` directly.
 
 > **Why not symlinks?** Symlinks work locally but break when a plugin is installed from a remote repository (`copilot plugin install OWNER/REPO:path`), because the symlink target does not exist in the installed copy.
 
