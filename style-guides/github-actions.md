@@ -19,9 +19,8 @@ This page outlines the style guide / coding conventions for GitHub Actions workf
   - [1.3 Third-Party Actions](#13-third-party-actions)
   - [1.4 Security Scanning](#14-security-scanning)
     - [1.4.1 scan.yml — Reusable Scan Workflow](#141-scanyml--reusable-scan-workflow)
-    - [1.4.2 Trivy Vulnerability Scanning](#142-trivy-vulnerability-scanning)
-    - [1.4.3 SonarCloud Code Scanning](#143-sonarcloud-code-scanning)
-    - [1.4.4 Unpinned Dependency Check](#144-unpinned-dependency-check)
+    - [1.4.2 SonarCloud Code Scanning](#142-sonarcloud-code-scanning)
+    - [1.4.3 Unpinned Dependency Check](#143-unpinned-dependency-check)
 
 ## 1 GitHub Actions Project Rules
 
@@ -146,50 +145,7 @@ jobs:
     ...
 ```
 
-#### 1.4.2 Trivy Vulnerability Scanning
-
-All AICE projects (JavaScript and Python) must use [Aqua Trivy](https://github.com/aquasecurity/trivy-action) to scan for known vulnerabilities in project dependencies and source code. Trivy handles both `npm` and `pip`/`uv` ecosystems and is the standard scanner across all AICE projects.
-
-The Trivy action must be pinned to a full commit SHA (see [section 1.3](#13-third-party-actions)). A `.trivyignore` file should be committed to the repository root to manage accepted/deferred vulnerabilities.
-
-Set `TRIVY_INCLUDE_DEV_DEPS: "true"` to ensure development dependencies are also scanned.
-
-Use `continue-on-error: true` on the scan step combined with a separate explicit failure step. This ensures the step outcome is captured in a named output (`id: trivy-scan`) and lets you control failure messaging:
-
-```yaml
-jobs:
-  trivy-scan:
-    name: Trivy Vulnerability Scan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-        with:
-          fetch-depth: 0
-
-      - name: Run Aqua Trivy scan
-        id: trivy-scan
-        uses: aquasecurity/trivy-action@<commit-sha> # pin to SHA
-        with:
-          scan-ref: .
-          scan-type: repository
-          format: table
-          exit-code: 1
-          trivyignores: .trivyignore
-          severity: CRITICAL,HIGH,MEDIUM,LOW
-          limit-severities-for-sarif: true
-        continue-on-error: true
-        env:
-          TRIVY_INCLUDE_DEV_DEPS: "true"
-
-      - name: Fail if vulnerabilities found
-        if: ${{ steps.trivy-scan.outcome == 'failure' }}
-        run: exit 1
-```
-
-Any vulnerabilities found must be addressed promptly by updating or replacing the affected dependency. Where a vulnerability cannot be immediately remediated, it should be acknowledged in `.trivyignore` with a comment explaining the reason and a target remediation date.
-
-#### 1.4.3 SonarCloud Code Scanning
+#### 1.4.2 SonarCloud Code Scanning
 
 All repositories must be connected to [SonarCloud](https://sonarcloud.io/) for static analysis and code quality scanning. The SonarCloud scan job runs within `scan.yml` alongside the Trivy scan.
 
@@ -230,7 +186,7 @@ jobs:
 
 For JavaScript projects, replace the Python setup and test steps with the appropriate Node.js equivalents.
 
-#### 1.4.4 Unpinned Dependency Check
+#### 1.4.3 Unpinned Dependency Check
 
 All AICE projects must include a `scripts/check-unpinned-dependencies.sh` script and run it as part of the Trivy scan job. This enforces the dependency pinning rules described in the [JavaScript](./javascript.md#14-dependency-management) and [Python](./python.md#14-dependency-management) style guides at CI time.
 
