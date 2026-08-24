@@ -1,6 +1,10 @@
 ---
-name: style-guide
+name: python-style-guide
 description: Apply the AICE Python coding conventions when writing or reviewing Python code for Defra AICE projects
+metadata:
+  github-repo: DEFRA/aice-team
+  github-ref: main
+  github-tree-sha: <sha at install time>
 ---
 
 Read the full [AICE Python Style Guide](references/python-style-guide.md). before writing or reviewing any Python code.

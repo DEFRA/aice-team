@@ -1,6 +1,10 @@
 ---
-name: style-guide
+name: github-actions-style-guide
 description: Apply the AICE GitHub Actions conventions when writing or reviewing workflow files for Defra AICE projects
+metadata:
+  github-repo: DEFRA/aice-team
+  github-ref: main
+  github-tree-sha: <sha at install time>
 ---
 
 Read the full AICE GitHub Actions style guide at [AICE GitHub Actions Style Guide](references/github-actions-style-guide.md). before writing or reviewing any workflow files.
