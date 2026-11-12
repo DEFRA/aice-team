@@ -155,6 +155,105 @@ Do not update to the latest cutting edge version of a dependency unless absolute
 
 You must use the `min-release-age` option in npm to prevent newly released versions from being automatically considered. This is required for projects targeting Node.js v24+ and npm v11.11.0+. If your project targets an older version of Node.js, you should upgrade to Node.js v24+ where possible to take advantage of this feature. See [1.4.2 .npmrc Configuration](#142-npmrc-configuration) for the required configuration.
 
+Dependabot must be configured in `.github/dependabot.yml`. This is a complete example, adapted from [rpa-ai-guidance-hub-ui](https://github.com/DEFRA/rpa-ai-guidance-hub-ui/blob/main/.github/dependabot.yml), with a `cooldown` matching `min-release-age`.
+
+> [!NOTE]
+> **Use PR groups for every ecosystem entry.** Each `groups` entry bundles all routine updates into a single PR per Dependabot run, so you get one pull request instead of one per dependency. Grouping keeps multiple dependency upgrades to a single PR and a single image rebuild.
+
+```yaml
+version: 2
+
+updates:
+  # Update npm packages
+  - package-ecosystem: npm
+    directory: /
+    open-pull-requests-limit: 10
+
+    # Wait 7 days after release before raising an update
+    cooldown:
+      default-days: 7
+
+    # Group all npm package updates into one PR per run
+    groups:
+      npm:
+        patterns:
+          - '*'
+
+    # Schedule run every Monday, local time
+    schedule:
+      interval: weekly
+      time: '10:00'
+      timezone: 'Europe/London'
+
+    versioning-strategy: increase
+
+    allow:
+      # Include direct package.json updates
+      - dependency-type: direct
+
+  # Update GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+
+    # Wait 7 days after release before raising an update
+    cooldown:
+      default-days: 7
+
+    # Group all GitHub Actions updates into one PR per run
+    groups:
+      github-actions:
+        patterns:
+          - '*'
+
+    # Schedule run every Monday, local time
+    schedule:
+      interval: weekly
+      time: '10:00'
+      timezone: 'Europe/London'
+
+  # Update Dockerfile base images
+  - package-ecosystem: docker
+    directory: /
+
+    # Wait 7 days after release before raising an update
+    cooldown:
+      default-days: 7
+
+    # Group all updates into one PR per run
+    groups:
+      docker:
+        patterns:
+          - '*'
+
+    # Schedule run every Monday, local time
+    schedule:
+      interval: weekly
+      time: '10:00'
+      timezone: 'Europe/London'
+
+  # Update Docker Compose images
+  - package-ecosystem: docker-compose
+    directory: /
+
+    # Wait 7 days after release before raising an update
+    cooldown:
+      default-days: 7
+
+    # Group all updates into one PR per run
+    groups:
+      docker-compose:
+        patterns:
+          - '*'
+
+    # Schedule run every Monday, local time
+    schedule:
+      interval: weekly
+      time: '10:00'
+      timezone: 'Europe/London'
+```
+
+The `github-actions`, `docker` and `docker-compose` entries are covered in the [GitHub Actions](./github-actions.md#13-third-party-actions) and [Docker](./docker.md#14-dependabot) style guides. Omit the Docker entries only if the project has no Dockerfile or Compose file. Use `ignore` entries only for a documented project-specific reason.
+
 #### 1.4.2 .npmrc Configuration
 All projects must include an `.npmrc` file at the root of the project. All projects regardless of Node.js version should include the following configuration:
 ```

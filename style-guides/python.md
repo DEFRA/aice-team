@@ -108,6 +108,105 @@ All projects must use the `exclude-newer` option in `uv` to prevent newly releas
 exclude-newer = "1 week"
 ```
 
+Dependabot must be configured in `.github/dependabot.yml`. This is a complete example, adapted from [rpa-ai-guidance-hub-search](https://github.com/DEFRA/rpa-ai-guidance-hub-search/blob/main/.github/dependabot.yml), with the `cooldown` matching `exclude-newer`.
+
+> [!NOTE]
+> **Use PR groups for every ecosystem entry.** Each `groups` entry bundles all routine updates into a single PR per Dependabot run, so you get one pull request instead of one per dependency. Grouping keeps multiple dependency upgrades to a single PR and a single image rebuild.
+
+```yaml
+version: 2
+
+updates:
+  # Update uv packages
+  - package-ecosystem: uv
+    directory: /
+    open-pull-requests-limit: 10
+
+    # Wait 7 days after release before raising an update
+    cooldown:
+      default-days: 7
+
+    # Group all uv package updates into one PR per run
+    groups:
+      uv:
+        patterns:
+          - '*'
+
+    # Schedule run every Monday, local time
+    schedule:
+      interval: weekly
+      time: '10:30'
+      timezone: 'Europe/London'
+
+    versioning-strategy: increase
+
+    allow:
+      # Include direct pyproject.toml updates
+      - dependency-type: direct
+
+  # Update GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+
+    # Wait 7 days after release before raising an update
+    cooldown:
+      default-days: 7
+
+    # Group all GitHub Actions updates into one PR per run
+    groups:
+      github-actions:
+        patterns:
+          - '*'
+
+    # Schedule run every Monday, local time
+    schedule:
+      interval: weekly
+      time: '10:30'
+      timezone: 'Europe/London'
+
+  # Update Dockerfile base images
+  - package-ecosystem: docker
+    directory: /
+
+    # Wait 7 days after release before raising an update
+    cooldown:
+      default-days: 7
+
+    # Group all updates into one PR per run
+    groups:
+      docker:
+        patterns:
+          - '*'
+
+    # Schedule run every Monday, local time
+    schedule:
+      interval: weekly
+      time: '10:30'
+      timezone: 'Europe/London'
+
+  # Update Docker Compose images
+  - package-ecosystem: docker-compose
+    directory: /
+
+    # Wait 7 days after release before raising an update
+    cooldown:
+      default-days: 7
+
+    # Group all updates into one PR per run
+    groups:
+      docker-compose:
+        patterns:
+          - '*'
+
+    # Schedule run every Monday, local time
+    schedule:
+      interval: weekly
+      time: '10:30'
+      timezone: 'Europe/London'
+```
+
+The `github-actions`, `docker` and `docker-compose` entries are covered in the [GitHub Actions](./github-actions.md#13-third-party-actions) and [Docker](./docker.md#14-dependabot) style guides. Omit the Docker entries only if the project has no Dockerfile or Compose file.
+
 ## 2 Python Style Guide
 
 ### 2.1 Modules
