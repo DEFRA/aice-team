@@ -16,6 +16,6 @@ Apply the style guide to all aspects of the task, including but not limited to:
 - Required workflow files and their triggers
 - File naming conventions
 - Security: permissions, secrets handling
-- Third-party action pinning (full commit SHA required)
+- Third-party action pinning (full commit SHA required) and Dependabot configuration
 - Security scanning pattern (Trivy, SonarCloud, unpinned dependency check)
 - Reusable workflow structure (scan.yml)
