@@ -16,7 +16,7 @@ Apply the style guide to all aspects of the task, including but not limited to:
 - Linting and formatting (ESLint + neostandard)
 - Module system (ES modules, import/export conventions)
 - Testing (Vitest, mocking rules)
-- Dependency management and version pinning
+- Dependency management, version pinning and Dependabot configuration
 - Source file conventions (naming, indentation, semicolons, line length)
 - Variable declarations, functions, strings, and classes
 - JSDoc documentation

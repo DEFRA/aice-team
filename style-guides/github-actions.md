@@ -20,7 +20,6 @@ This page outlines the style guide / coding conventions for GitHub Actions workf
   - [1.4 Security Scanning](#14-security-scanning)
     - [1.4.1 scan.yml — Reusable Scan Workflow](#141-scanyml--reusable-scan-workflow)
     - [1.4.2 SonarCloud Code Scanning](#142-sonarcloud-code-scanning)
-    - [1.4.3 Unpinned Dependency Check](#143-unpinned-dependency-check)
 
 ## 1 GitHub Actions Project Rules
 
@@ -113,6 +112,33 @@ Don't do this:
 - uses: actions/checkout@main
 ```
 
+> [!NOTE]
+> **Group the updates.** The `groups` entry bundles all GitHub Actions into a single PR per Dependabot run, keeping steady upkeep rather than one pull request per action.
+
+Dependabot must be configured for the `github-actions` ecosystem in `.github/dependabot.yml` so pinned SHAs are kept up to date. It updates the SHA and the version comment together:
+
+```yaml
+- package-ecosystem: github-actions
+  directory: /
+
+  # Wait 7 days after release before raising an update
+  cooldown:
+    default-days: 7
+
+  # Group all GitHub Actions updates into one PR per run
+  groups:
+    github-actions:
+      patterns:
+        - '*'
+
+  schedule:
+    interval: weekly
+    time: '10:30'
+    timezone: 'Europe/London'
+```
+
+See the [Docker Style Guide](./docker.md#14-dependabot) for the equivalent rules for container images.
+
 ### 1.4 Security Scanning
 
 #### 1.4.1 scan.yml — Reusable Scan Workflow
@@ -185,17 +211,6 @@ jobs:
 ```
 
 For JavaScript projects, replace the Python setup and test steps with the appropriate Node.js equivalents.
-
-#### 1.4.3 Unpinned Dependency Check
-
-All AICE projects must include a `scripts/check-unpinned-dependencies.sh` script and run it as part of the Trivy scan job. This enforces the dependency pinning rules described in the [JavaScript](./javascript.md#14-dependency-management) and [Python](./python.md#14-dependency-management) style guides at CI time.
-
-```yaml
-- name: Check for unpinned dependencies
-  run: |
-    chmod +x ./scripts/check-unpinned-dependencies.sh
-    ./scripts/check-unpinned-dependencies.sh
-```
 
 ## Contributions
 

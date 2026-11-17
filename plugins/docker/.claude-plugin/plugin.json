@@ -1,0 +1,10 @@
+{
+  "name": "aice-docker",
+  "description": "Docker style guide skill for AICE Dockerfiles and Docker Compose files",
+  "version": "1.0.0",
+  "author": {
+    "name": "Defra AICE Team"
+  },
+  "license": "OGL-UK-3.0",
+  "keywords": ["docker", "docker-compose", "dependabot", "defra", "aice", "style-guide"]
+}

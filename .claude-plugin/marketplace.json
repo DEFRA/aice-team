@@ -18,6 +18,11 @@
       "name": "aice-github-actions",
       "source": "./plugins/github-actions",
       "description": "GitHub Actions style guide skill for AICE workflow files"
+    },
+    {
+      "name": "aice-docker",
+      "source": "./plugins/docker",
+      "description": "Docker style guide skill for AICE Dockerfiles and Docker Compose files"
     }
   ]
 }

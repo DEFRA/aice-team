@@ -15,7 +15,7 @@ Apply the style guide to all aspects of the task, including but not limited to:
 
 - Project tooling (Ruff, uv, pytest, MyPy)
 - Project structure and file layout
-- Dependency management and version pinning
+- Dependency management, version pinning and Dependabot configuration
 - Module and import conventions
 - Naming conventions
 - Type hints and annotations

@@ -21,6 +21,9 @@ copilot plugin install aice-javascript@defra-aice
 
 # GitHub Actions: style guide skill
 copilot plugin install aice-github-actions@defra-aice
+
+# Docker: style guide skill
+copilot plugin install aice-docker@defra-aice
 ```
 
 ## Plugins
@@ -30,6 +33,7 @@ copilot plugin install aice-github-actions@defra-aice
 | [`python/`](python/) | `python-style-guide` | `python-writer`, `python-reviewer` |
 | [`javascript/`](javascript/) | `javascript-design-language`, `javascript-style-guide`, `javascript-testing-standards`, `javascript-review-standards` | — |
 | [`github-actions/`](github-actions/) | `github-actions-style-guide` | — |
+| [`docker/`](docker/) | `docker-style-guide` | — |
 
 ## Structure
 

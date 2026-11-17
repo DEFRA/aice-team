@@ -8,6 +8,7 @@ This repository contains guides and documentation specific to the AI Capabilitie
   - [JavaScript Code Review Standards](style-guides/javascript-review.md)
   - [Python Style Guide](style-guides/python.md)
   - [GitHub Actions Style Guide](style-guides/github-actions.md)
+  - [Docker Style Guide](style-guides/docker.md)
 - [Copilot CLI Plugins](plugins/README.md)
 
 ## Copilot CLI Marketplace
